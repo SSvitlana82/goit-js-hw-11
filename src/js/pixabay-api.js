@@ -3,13 +3,13 @@ import axios from 'axios';
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '42369519-035bfcd8f925f02ed856cad4b';
 
-export function searchImages(q) {
+export default function searchImages(q) {
+  const params = `?key=${API_KEY}&q=${q}&image_type=photo&orientation=horizontal&safesearch=true`;
+  const url = `${BASE_URL}${params}`;
   return axios
-    .get(
-      `${BASE_URL}?key=${API_KEY}&q=${q}&image_type=photo&orientation=horizontal&safesearch=true`
-    )
-    .then(({ data }) => {
-      return data;
+    .get(url)
+    .then(response => {
+      return response.data;
     })
     .catch(error => {
       console.log(error);

@@ -1,7 +1,7 @@
-import { searchImages } from './js/pixabay-api';
+import searchImages from './js/pixabay-api';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import { showGalleryMarkup } from './js/render-functions';
+import { showGalleryMarkup, galleryList } from './js/render-functions';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -11,6 +11,7 @@ const simpleLightbox = new SimpleLightbox('.list-gallery a', {
 
 const textInput = document.querySelector('.form-input');
 const searchForm = document.querySelector('#form');
+const loaderElem = document.querySelector('.loader');
 
 searchForm.addEventListener('submit', onSearch);
 
@@ -22,6 +23,7 @@ function onSearch(event) {
     return;
   }
   console.dir(textInput);
+  showLoader();
   searchImages(value)
     .then(data => {
       console.log(data);
@@ -34,10 +36,20 @@ function onSearch(event) {
             'Sorry, there are no images matching your search query. Please try again!',
         });
       }
+      galleryList.innerHTML = '';
       showGalleryMarkup(data.hits);
       simpleLightbox.refresh();
     })
     .catch(error => {
       console.log(error);
+    })
+    .finally(() => {
+      hideLoader();
     });
+}
+function showLoader() {
+  loaderElem.classList.remove('hidden');
+}
+function hideLoader() {
+  loaderElem.classList.add('hidden');
 }

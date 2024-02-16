@@ -1,4 +1,4 @@
-const galleryList = document.querySelector('.list-gallery');
+export const galleryList = document.querySelector('.list-gallery');
 export function showGalleryMarkup(dataArray) {
   const markup = dataArray
     .map(item => {
