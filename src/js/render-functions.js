@@ -12,9 +12,9 @@ export function showGalleryMarkup(dataArray) {
         downloads,
       } = item;
       return ` 
-    <li>
-        <a href="${largeImageURL}"> <img src="${webformatURL}" alt="${tags}" />
-        <ul>
+    <li class="gallery-item">
+        <a href="${largeImageURL}" class="gallery-link"> <img src="${webformatURL}" alt="${tags}" class="gallery-image" />
+        <ul class = "gallery">
           <li>
             <h3>likes</h3>
             <p>${likes}</p>
